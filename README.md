@@ -18,14 +18,16 @@
 > 
 >
 > ------
+>
 > # [Video]()
 >
 >
 >
 > ------
+>
 > # [Samples]()
 >
-> 		**Main Window.** 
+> 		**MainWindow.** 
 >
 > ![](/imgs/img11.png)
 >
@@ -35,11 +37,11 @@
 >
 > ![](/imgs/img8.png)
 >
-> 		**Add PPM**
+> 		**AddPPM**
 >
 > ![](/imgs/img13.png)
 >
-> 		**Daily Inspection.**
+> 		**DailyInspection.**
 >
 > ![](/imgs/img6.png)
 >
