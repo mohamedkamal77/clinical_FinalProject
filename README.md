@@ -27,33 +27,33 @@
 >
 > # [Samples]()
 >
-> 		**MainWindow.** 
+>## 		**MainWindow.** 
 >
 > ![](/imgs/img11.png)
 >
-> ​		**PPM.**
+>## ​		**PPM.**
 >
 > ![](/imgs/img7.png)
 >
 > ![](/imgs/img8.png)
 >
-> 		**AddPPM**
+> ​		**AddPPM**
 >
 > ![](/imgs/img13.png)
 >
-> 		**DailyInspection.**
+> ​		**DailyInspection.**
 >
 > ![](/imgs/img6.png)
 >
-> 		**Add Daily Inspection.**
+> ​		**Add Daily Inspection.**
 >
 > ![](/imgs/img14.png)
 >
-> 		**Equipement**
+> ​		**Equipement**
 >
 > ![](/imgs/img2.png)
 >
-> 		**Add Equipement**
+> ​		**Add Equipement**
 >
 > ![](/imgs/img9.png)
 >
