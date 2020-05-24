@@ -1,6 +1,6 @@
 # clinical_FinalProject
 
-| Team             | #2                                                           |
+| Team             | #                                                            |
 | :--------------: | :----------------------------------------------------------- |
 |      **By**      | **- Adel Moustafa**                                                                                                                  **- Mohamed Kamal**                                                                                                                                   **- Mahmoud Abdelrhman**                                                                                                                                    **- Mohamed Mohsen**                                                                                                                                     **- Mohamed Yasser** |
 |      **To**      | **Prof/ Bassel Tawfik**                                    |
