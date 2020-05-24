@@ -1,9 +1,12 @@
 import matplotlib
 matplotlib.use('QT5Agg')
+#matplotlib.rcParams['figure.figsize'] = [30, 15] 
 import matplotlib.pylab as plt
 from matplotlib.backends.qt_compat import QtCore, QtWidgets, is_pyqt5
 from matplotlib.backends.backend_qt5agg import FigureCanvas, NavigationToolbar2QT as NavigationToolbar
 from matplotlib.figure import Figure
+from update_order import update_purchase
+
 from ui import Ui_MainWindow
 from add_eng import  add_eng
 from add_sup_provider import add_supplier
@@ -38,10 +41,13 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.add_daily_inspection=add_daily_inspection(self.ui.centralwidget , self.ui.verticalLayout_2)
 		self.add_ppm = add_ppm(self.ui.centralwidget , self.ui.verticalLayout_2)
 		self.add_purchase = add_purchase(self.ui.centralwidget , self.ui.verticalLayout_2)
+		self.update_order =update_purchase(self.ui.centralwidget , self.ui.verticalLayout_2)
 		self.currentItem = ""
 		self.map = { "Departement":"dep","Equipment":"dep", "Engineer": "engineer"  ,"Technician":"technician","Supplier":"supplier","Service":"service_supplier","Equipement":"equipement","Daily Inspection":"daily_inspection","PPM":'ppm',"Purchase Order":'purchase'}
 		self.ui.listWidget.currentRowChanged.connect(self.change_table)
+		self.ui.listWidget.clicked.connect(self.change_table)
 		self.ui.pushButton.clicked.connect(self.add_data)
+		self.ui.pushButton1.clicked.connect(self.update_order_)
 		self.add_supplier.connect_save(self.save_supplier)
 		self.add_eng.connect_save(self.save_eng)
 		self.add_eq.connect_save(self.save_equipement)
@@ -49,8 +55,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.add_eq.connect_service(self.add_service_)
 		self.add_purchase.connect_save(self.save_purchase)
 		self.add_purchase.connect_supplier(self.add_supp_)
+		self.update_order.connect_save(self.update)
 		plt.ioff()
-		self.fig , self.ax =plt.subplots(figsize=(27,27))
+		self.fig , self.ax =plt.subplots()#figsize=(25,25)
 		plotWidget = FigureCanvas(self.fig) 
 		
 		self.ui.plot.addWidget(plotWidget)
@@ -58,7 +65,21 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.add_ppm.connect_save(self.save_ppm)
 		self.fill_dep(self.get_dep)
 		self.ui.select_dp.currentIndexChanged.connect(self.change_dp)
+	def update_order_(self):
+		self.update_order.show()
+		self.update_order.fill_order(self.get_order)
+	def update(self):
+		data = self.update_order.get_date()
+		mycursor.execute(f"UPDATE purchase SET p_status = '{data[1]}'  WHERE p_no ={data[0]} ")
+		mydb.commit()
+		self.update_order.hide()
+
 	def change_table(self,ind):
+		if self.currentItem =="Purchase Order":
+			self.ui.pushButton1.show()
+		else :
+			self.ui.pushButton1.hide()
+
 		self.add_eq.hide()
 		self.add_purchase.hide()
 		self.add_supplier.hide()
@@ -92,7 +113,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 			self.ui.show_data_frame.hide()
 				
 	def add_data(self):
-
 		if self.currentItem in ["Engineer" ,"Technician"] :
 			self.add_eng.show(self.currentItem)
 			self.add_eng.fill_dep(self.get_dep)			
@@ -115,6 +135,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 			self.add_ppm.fill_eng(self.get_eng)
 			self.add_ppm.fill_tech(self.get_tech)
 		elif self.currentItem =='Purchase Order':
+			self.update_order.hide()
 			self.add_purchase.show()
 			self.add_purchase.fill_eng(self.get_eng)
 			self.add_purchase.fill_supplier(self.get_supplier)
@@ -277,6 +298,11 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		supplier = mycursor.fetchall()
 		return supplier
 
+	def get_order(self):
+		mycursor.execute("SELECT p_product,p_no FROM purchase")
+		order =mycursor.fetchall()
+		return order
+
 	def fill_table(self,table,dep_no=0):
 		if table == 'ppm':
 			if dep_no !=0:
@@ -291,7 +317,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 			self.y = self.y[:,6:19]
 			self.y =np.sum(self.y.astype(np.int) ,axis=0)
 			self.x =row_headers[6:19]
-			self.report_plt(self.y,self.x,dep_no,0)
+			self.report_plt(self.y,self.x,dep_no,table)
 			
 			print(self.y)
 		elif table == 'purchase':
@@ -319,7 +345,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 				y =np.sum(y.astype(np.int),axis=0)
 				
 				print(y)
-				self.report_plt(y,x,dep_no,1)
+				self.report_plt(y,x,dep_no,table)
 		elif table in ['supplier','service_supplier']:
 			mycursor.execute("SELECT * FROM %s"%table)
 			row_headers=[x[0] for x in mycursor.description]
@@ -361,8 +387,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 							val =myres[j][i]
 
 						self.ui.tableWidget.setItem(j,i, QtWidgets.QTableWidgetItem(str(val)) ) 
-						if table in ['ppm','daily_inspection']:
-							self.ui.plt_frame.show()               
+			if table in ['ppm','daily_inspection']:
+				#self.report_plt(self.y,self.x,dep_no,table)
+				self.ui.plt_frame.show()               
 		else :
 			length = np.size(row_headers)
 			self.ui.tableWidget.clear()
@@ -382,11 +409,10 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.ax.set_xticklabels(x,rotation=40)
 		self.ax.tick_params(axis='x',which='minor',labelsize=6)
 		self.ax.tick_params(axis='x',which='major',labelsize=6)
-		#bself.fig.tight_layout()
-		plt.subplots_adjust(bottom=0.3,left=0.07,right=0.95)
-		self.ax.set(title=f'{table[index]} for {dep[dep_no]} dep',xlabel = 'check',ylabel='no of proplems')
+		plt.subplots_adjust(bottom=0.40,left=0.07,right=0.95)
+		self.ax.set(title=f'{index} for {dep[dep_no]} dep',xlabel = 'check',ylabel='no of proplems')
 
-		self.fig.canvas.draw_idle()
+		self.fig.canvas.draw()
 	def fill_dep(self,func):	
 		deps = func()
 		self.ui.select_dp.addItem('None')
@@ -394,7 +420,6 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		    self.ui.select_dp.addItem(i[0])
 
 	def change_dp(self):
-		self.ui.plt_frame.hide()
 		dep_no = self.ui.select_dp.currentIndex()
 		self.fill_table(self.map[self.currentItem],dep_no )
 				

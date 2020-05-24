@@ -21,7 +21,7 @@
 >
 > # [Video]()
 >
->
+> ![](/imgs/sample.gif)
 >
 > ------
 >
@@ -37,23 +37,27 @@
 >
 > ![](/imgs/img8.png)
 >
-> ​		**AddPPM**
+>## ​		**AddPPM**
 >
 > ![](/imgs/img13.png)
 >
-> ​		**DailyInspection.**
+>## ​		**DailyInspection.**
 >
 > ![](/imgs/img6.png)
 >
-> ​		**Add Daily Inspection.**
+>## ​		**Add Daily Inspection.**
 >
 > ![](/imgs/img14.png)
 >
-> ​		**Equipement**
+>## ​		**Update Purchase.**
+>
+> ![](/imgs/img15.png)
+>
+>## ​		**Equipement**
 >
 > ![](/imgs/img2.png)
 >
-> ​		**Add Equipement**
+>## ​		**Add Equipement**
 >
 > ![](/imgs/img9.png)
 >
