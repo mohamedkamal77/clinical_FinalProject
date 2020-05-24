@@ -218,7 +218,7 @@ class main_page:
         self.options_li=[self.eng_btn,self.tech_btn,self.eq_btn,self.ppm_btn,self.aily_btn,self.purchase_btn]
         self.label_5.setText("Emergency")
         self.label.setText("OR")
-        self.label_2.setText("OR")
+        self.label_2.setText("ICU")
         self.label_8.setText("Eng")
         self.label_7.setText("Tech")
         self.label_6.setText(" Equip")
