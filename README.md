@@ -23,6 +23,8 @@
 >
 > # [Video]()
 >
+>### ​ **For High Quality Video [link!](https://github.com/mohamedkamal77/clinical_FinalProject/tree/master/imgs/video.mp4).**
+>
 > ![](/imgs/video.gif)
 >
 > ------
@@ -31,7 +33,6 @@
 >
 >## 		**MainWindow.** 
 > 
-> ​ **For High Quality Video [link!](https://github.com/mohamedkamal77/clinical_FinalProject/tree/master/imgs/video.mp4).**
 >
 > ![](/imgs/img11.png)
 >
