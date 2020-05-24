@@ -1,11 +1,10 @@
 # clinical_FinalProject
 
+| Team             | #2                                                           |
+| :--------------: | :----------------------------------------------------------- |
+|      **By**      | **- Adel Moustafa**                                                                                                                                   **- Mahmoud Abdelrhman**                                                                                                                  **- Mohamed Kamal**                                                                                                                                    **- Mohamed Yasser** |
+|      **To**      | **Prof/ Bassel Tawfik**                                    |
 
-﻿| Programming task |                              #1                              |
-| :--------------: | :----------------------------------------------------------: |
-|      **By**      | **-Adel Mostafa** <br /> **-Mahmoud Abdelrhman** <br /> **-Mohamed Kamal** <br /> 
-**-Mohamed Yasser** |
-|      **To**      |                  **Prof/ Bassel Tawfik**                   |
 
 > ------
 >
