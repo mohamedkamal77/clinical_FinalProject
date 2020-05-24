@@ -1,4 +1,4 @@
-# clinical_FinalProject
+# clinical_Final_Project
 
 | Team             | #                                                            |
 | :--------------: | :----------------------------------------------------------- |
@@ -12,9 +12,9 @@
 >
 > ​		**Import Database:**
 >
-> 1.  **It could be found in file named database with xml extensuion.**
+> 1.  **It could be found in file named "database with xml extension".**
 >
-> 2.  **edit main.py file , edit user name , password and database name if changed**
+> 2.  **Edit main.py file , edit user name , password and the database name if changed.**
 >
 > 
 >
