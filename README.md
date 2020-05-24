@@ -2,7 +2,7 @@
 
 | Team             | #2                                                           |
 | :--------------: | :----------------------------------------------------------- |
-|      **By**      | **- Adel Moustafa**                                                                                                                                   **- Mahmoud Abdelrhman**                                                                                                                  **- Mohamed Kamal**                                                                                                                                    **- Mohamed Yasser** |
+|      **By**      | **- Adel Moustafa**                                                                                                                                   **- Mahmoud Abdelrhman**                                                                                                                  **- Mohamed Kamal**                                                                                                                                    **- Mohamed Yasser** |                                                                                                                                    **- Mohamed Mohsen** |
 |      **To**      | **Prof/ Bassel Tawfik**                                    |
 
 
@@ -12,7 +12,7 @@
 >
 > ​		**Import Database:**
 >
-> 1.  ** It could be found in file named database with xml extensuion.**
+> 1.  **It could be found in file named database with xml extensuion.**
 >
 > 2.  **edit main.py file , edit user name , password and database name if changed**
 >
