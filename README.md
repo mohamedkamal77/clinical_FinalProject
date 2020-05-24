@@ -1,9 +1,11 @@
 # clinical_FinalProject
 
+
 ﻿| Programming task |                              #1                              |
 | :--------------: | :----------------------------------------------------------: |
-|      **By**      | **-Adel Mostafa ** <br /> **-Mahmoud Abdelrhman ** <br /> **-Mohamed Kamal** <br /> **-Mohamed Yasser** |
-|      **To**      |                  **Prof/ Inas A. Yassine**                   |
+|      **By**      | **-Adel Mostafa** <br /> **-Mahmoud Abdelrhman** <br /> **-Mohamed Kamal** <br /> 
+**-Mohamed Yasser** |
+|      **To**      |                  **Prof/ Bassel Tawfik**                   |
 
 > ------
 >
@@ -11,9 +13,9 @@
 >
 > ​		**Import Database:**
 >
-> 1. ** It could be found in file named database with xml extensuion.**
+> 1.  ** It could be found in file named database with xml extensuion.**
 >
-> 2. edit main.py file , edit user name , password and database name if changed
+> 2.  **edit main.py file , edit user name , password and database name if changed**
 >
 > 
 >
@@ -21,7 +23,7 @@
 >
 > # [Video]()
 >
-> ![](/imgs/sample.gif)
+> ![](/imgs/video.gif)
 >
 > ------
 >
