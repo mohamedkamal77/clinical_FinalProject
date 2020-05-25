@@ -177,7 +177,6 @@ class Ui_MainWindow(object):
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
         
-
         self.pushButton1.setPalette(palette)
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -187,10 +186,30 @@ class Ui_MainWindow(object):
         self.pushButton1.setStyleSheet("background-color: rgb(23, 147, 255);")
         self.pushButton1.setObjectName("pushButton1")
         self.horizontalLayout.addWidget(self.pushButton1)
-
+        ######################
+        self.pushButton2 = QtWidgets.QPushButton(self.centralwidget)
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(23, 147, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(248, 254, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        
+        self.pushButton2.setPalette(palette)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        font.setWeight(75)
+        self.pushButton2.setFont(font)
+        self.pushButton2.setStyleSheet("background-color: rgb(23, 147, 255);")
+        self.pushButton2.setObjectName("pushButton2")
+        self.horizontalLayout.addWidget(self.pushButton2)
+        self.pushButton2.hide()
 
         self.horizontalLayout.setStretch(0, 1)
         self.horizontalLayout.setStretch(1, 2)
+        self.horizontalLayout.setStretch(2, 1)
         self.horizontalLayout.setStretch(2, 1)
         self.horizontalLayout.setStretch(2, 1)
         self.verticalLayout.addLayout(self.horizontalLayout)
@@ -258,7 +277,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setSizePolicy(sizePolicy)
         self.tableWidget.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.tableWidget.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
-        self.tableWidget.setAutoScrollMargin(16)
+        self.tableWidget.setAutoScrollMargin(12)
         self.tableWidget.setShowGrid(False)
         self.tableWidget.setRowCount(1)
         self.tableWidget.setColumnCount(2)
@@ -339,6 +358,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "       CHOSEN"))
         self.pushButton.setText(_translate("MainWindow", "New"))
         self.pushButton1.setText(_translate("MainWindow", "Update Order"))
+        self.pushButton2.setText(_translate("MainWindow", "Print Report"))
         
         item = self.tableWidget.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "CMMS"))

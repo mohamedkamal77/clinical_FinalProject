@@ -199,6 +199,10 @@ class add_daily_inspection:
         for i in eqs:
             self.eq.addItem(i[0]+','+i[1])
 
+    def connect_hide(self,func):
+        self.Cancel.clicked.connect(func)
+
+
     def change_eq(self):
         index = int(self.dep.currentIndex() )
         if self.fill_eq_func!=0:

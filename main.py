@@ -19,7 +19,9 @@ import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 import  numpy as np
 import mysql.connector
-
+import pandas as pd
+from fpdf import FPDF
+import datetime
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
@@ -48,23 +50,30 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.ui.listWidget.clicked.connect(self.change_table)
 		self.ui.pushButton.clicked.connect(self.add_data)
 		self.ui.pushButton1.clicked.connect(self.update_order_)
+		self.ui.pushButton2.clicked.connect(self.print_report)
 		self.add_supplier.connect_save(self.save_supplier)
 		self.add_eng.connect_save(self.save_eng)
-		self.add_eq.connect_save(self.save_equipement)
+		self.add_eng.connect_save(self.save_equipement)
 		self.add_eq.connect_supplier(self.add_supp_)
 		self.add_eq.connect_service(self.add_service_)
 		self.add_purchase.connect_save(self.save_purchase)
 		self.add_purchase.connect_supplier(self.add_supp_)
 		self.update_order.connect_save(self.update)
+		self.add_daily_inspection.connect_hide(self.ui.plt_frame.show)
+		self.add_ppm.connect_hide(self.ui.plt_frame.show)
 		plt.ioff()
 		self.fig , self.ax =plt.subplots()#figsize=(25,25)
 		plotWidget = FigureCanvas(self.fig) 
-		
+		self.ppm_headers=['Equip Name','Eq Code','Eng Fname','Eng L','Tec Fname','Tec L','Battery F','Circuit','Cable','Software','Output','Internal','Connections','Elec Leak','Physic Leak','Part F','Rep Part','No Alarm','Contin Alarm','Cost']
+		self.purchase_headers=['Equip Name','Order D','Delivery D', 'Unit Cost' , 'Units No','Status', 'Eng Fname','Eng Lname']
+		self.daily_headers=['Equip Name','Eq Code','Clearing','Physical','Function','Power']
 		self.ui.plot.addWidget(plotWidget)
 		self.add_daily_inspection.connect_save(self.save_daily_inspection)
 		self.add_ppm.connect_save(self.save_ppm)
 		self.fill_dep(self.get_dep)
 		self.ui.select_dp.currentIndexChanged.connect(self.change_dp)
+		self.add_supplier.save.clicked.connect(self.add_eq.change_sup)
+		self.add_supplier.save.clicked.connect(self.add_eq.change_prov)
 	def update_order_(self):
 		self.update_order.show()
 		self.update_order.fill_order(self.get_order)
@@ -77,6 +86,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 	def change_table(self,ind):
 		if self.currentItem =="Purchase Order":
 			self.ui.pushButton1.show()
+
 		else :
 			self.ui.pushButton1.hide()
 
@@ -90,6 +100,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.currentItem =(self.ui.listWidget.currentItem().text())
 		self.ui.label.setText(self.currentItem)
 		if self.currentItem in ["Daily Inspection","PPM",'Purchase Order']:
+			self.ui.pushButton2.show()
 			if self.currentItem == 'Purchase Order':
 				self.ui.plt_frame.hide()
 			self.ui.select_to_date.show()
@@ -97,6 +108,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 			self.ui.lab2.show()
 			self.ui.lab3.show()
 		else:
+			self.ui.pushButton2.hide()
 			self.ui.plt_frame.hide()
 			self.ax.cla()
 			self.ui.select_to_date.hide()
@@ -113,6 +125,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 			self.ui.show_data_frame.hide()
 				
 	def add_data(self):
+		self.ui.plt_frame.hide()
 		if self.currentItem in ["Engineer" ,"Technician"] :
 			self.add_eng.show(self.currentItem)
 			self.add_eng.fill_dep(self.get_dep)			
@@ -261,7 +274,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 			return mycursor.fetchall()
 	def add_supp_(self,fun):
 		self.add_supplier.show("Supplier")
-		fun(self.get_supplier)
+		
 		
 		
 	def add_service_(self,fun):
@@ -376,9 +389,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 						if table in['ppm','daily_inspection']:
 							if row_headers[i]!='cost':
 								if myres[j][i]==0:
-									val = '--ve'
+									val = 'N'
 								elif myres[j][i]==1:
-									val = '++ve'
+									val = 'Y'
 								else:
 									val =myres[j][i]
 							else:
@@ -411,7 +424,7 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 		self.ax.tick_params(axis='x',which='major',labelsize=6)
 		plt.subplots_adjust(bottom=0.40,left=0.07,right=0.95)
 		self.ax.set(title=f'{index} for {dep[dep_no]} dep',xlabel = 'check',ylabel='no of proplems')
-
+		self.fig.savefig(f"imgs/{self.currentItem}.jpeg")
 		self.fig.canvas.draw()
 	def fill_dep(self,func):	
 		deps = func()
@@ -422,8 +435,91 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 	def change_dp(self):
 		dep_no = self.ui.select_dp.currentIndex()
 		self.fill_table(self.map[self.currentItem],dep_no )
-				
+	
+	def print_report(self):	
+		dir=self.get_directory()
+		if self.currentItem in ["Daily Inspection","PPM",'Purchase Order']:
+			col_no=int(self.ui.tableWidget.columnCount())
+			row_no=int(self.ui.tableWidget.rowCount())
+			dat = []
+		
+			for i in range(row_no):
+				temp1=[]
+				for j in range(col_no):
+					temp=self.ui.tableWidget.item(i,j)
+					temp =str(temp.text())
+					temp1.append(temp)
+				print(temp1)	
+				dat.append(temp1)
+			dat=np.asarray(dat)
+			header =0
 
+			if col_no == np.size(self.ppm_headers):
+
+				header = self.ppm_headers
+			elif col_no ==np.size(self.purchase_headers):
+				header =self.purchase_headers
+			elif col_no == np.size(self.daily_headers):
+				header = self.daily_headers
+		
+			if header !=0:
+			
+				pdf = FPDF()
+				pdf.add_page()
+				pdf.set_xy(0, 0)
+				pdf.set_font('arial', 'B', 6)
+				pdf.cell(75, 7, "Country: Egypt", 0, 2, 'C')
+				pdf.cell(75, 7, "Goverbnment : Cairo", 0, 2, 'C')
+				pdf.cell(75, 7, "Hospital : Hospital", 0, 2, 'C')
+				pdf.cell(75, 7, f"Date: {datetime.date.today()}", 0, 2, 'C')
+				pdf.cell(45)
+				pdf.set_font('arial', 'B', 20)
+				pdf.cell(90, 10, f"{self.currentItem} Report", 0, 2, 'C')
+				pdf.cell(80, 10, " ", 0, 2, 'C')
+				if self.currentItem == 'PPM':
+					pdf.cell(-42)
+					size =[15,10]
+				else:
+					size =[20,15]
+
+				pdf.set_font('arial', '', 5)
+
+				for i in range(col_no -1):	
+					if i !=0:		
+						pdf.cell(size[1], 11, header[i], 1, 0, 'C')
+					else:
+						pdf.cell(size[0], 11, header[i], 1, 0, 'C')
+				pdf.cell(size[1], 11, header[col_no -1], 1, 2, 'C')
+				pdf.cell(-((col_no-2)*size[1] +size[0]))
+				pdf.set_font('arial', '', 5)
+				for i in range(row_no):
+					for j in range(col_no -1 ):
+						if j==0:
+							pdf.cell(size[0], 8,  '%s' % (dat[i,j]), 1, 0, 'C')
+						else:
+							pdf.cell(size[1], 8,  '%s' % (dat[i,j]), 1, 0, 'C')
+					pdf.cell(size[1], 8,  '%s' % (dat[i,col_no -1]), 1, 2, 'C')
+					pdf.cell(- ((col_no-2)*size[1] +size[0]))
+
+				if self.currentItem != 'Purchase Order': 
+					pdf.cell(80, 10, " ", 0, 2, 'C')
+					if self.currentItem == 'PPM':
+						pdf.cell(20)
+						pdf.image(f"imgs/{self.currentItem}.jpeg", x = None, y = None, w = 160, h = 100, type = '', link = '')
+					else:
+						
+						pdf.image(f"imgs/{self.currentItem}.jpeg", x = None, y = None, w = 120, h = 100, type = '', link = '')
+
+				pdf.output(f'{dir}.pdf', 'F')
+
+	def get_directory(self):
+		options = QtWidgets.QFileDialog.Options()
+		options |= QtWidgets.QFileDialog.DontUseNativeDialog
+		fileName, _ = QtWidgets.QFileDialog.getSaveFileName(self,"Choose Directory and Name", "","All Files (*);;Python Files (*.py)", options=options)
+		if fileName:
+			return fileName
+		else:
+			return 'team_1'
 
 
 

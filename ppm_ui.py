@@ -374,7 +374,8 @@ class add_ppm:
         data.append(self.date.date().toPyDate())    
 
         return data 
-
+    def connect_hide(self,func):
+        self.Cancel_bt.clicked.connect(func)
     def hide(self):
         self.frame.hide()
 

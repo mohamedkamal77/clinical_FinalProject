@@ -204,7 +204,10 @@ class add_eq:
         self.add_service.setText( "Add Provider")
         self.Save.setText( "Save")
         self.Cancel.setText( "Cancel")
+        self.service_f=0
+        self.supplier_f=0
         self.Cancel.clicked.connect(self.hide)
+
 
 
     def fill_dep(self,func):
@@ -219,18 +222,34 @@ class add_eq:
             self.eq_room.addItem(i[0])
     def fill_supplier(self,func):
         self.eq_supplier.clear()
+        self.supplier_f=func
         supplier = func()
         self.eq_supplier.addItem("None")
         for i in supplier:
             self.eq_supplier.addItem(i[0])
     def fill_service_provider(self,func):
         self.eq_service.clear()
+        self.service_f=func
         rooms = func()
         self.eq_service.addItem("None")
         for i in rooms:
             self.eq_service.addItem(i[0])
 
+    def change_sup(self):
+        if self.supplier_f!=0:
+            self.eq_supplier.clear()
+            self.eq_supplier.addItem("None")
+            sup=self.supplier_f()
+            for i in sup:
+                self.eq_supplier.addItem(i[0])
 
+    def change_prov(self):
+        if self.service_f!=0:
+            self.eq_service.clear()
+            self.eq_service.addItem("None")
+            sup=self.service_f()
+            for i in sup:
+                self.eq_service.addItem(i[0])
 
     def get_date(self):
         data = []
@@ -278,8 +297,8 @@ class add_eq:
         self.Save.clicked.connect(func)
 
     def connect_supplier(self,func):
-        self.add_supplier.clicked.connect(lambda:func(self.fill_service_provider))
+        self.add_supplier.clicked.connect(func)
 
     def connect_service(self,func):
-        self.add_service.clicked.connect(lambda:func(self.fill_supplier))
+        self.add_service.clicked.connect(func)
         
