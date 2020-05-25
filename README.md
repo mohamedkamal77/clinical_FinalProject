@@ -1,6 +1,6 @@
 # clinical_Final_Project
 
-| Team             | #                                                            |
+| Team             | # 1                                                           |
 | :--------------: | :----------------------------------------------------------- |
 |      **By**      | **- Adel Moustafa**                                                                                                                  **- Mohamed Kamal**                                                                                                                                   **- Mahmoud Abdelrhman**                                                                                                                                    **- Mohamed Mohsen**                                                                                                                                     **- Mohamed Yasser** |
 |      **To**      | **Prof/ Bassel Tawfik**                                    |
@@ -12,7 +12,7 @@
 >
 > ​		**Import Database:**
 >
-> 1.  **It could be found in file named "database with xml extension".**
+> 1.  **It could be found in file named "database with xml extension" in compressed file.**
 >
 > 2.  **Edit main.py file , edit user name , password and the database name if changed.**
 >
@@ -22,8 +22,11 @@
 >
 > # [Video]()
 >
+> ​**To get full video [full video](https://github.com/mohamedkamal77/clinical_FinalProject/tree/master/imgs/sample.mp4).**
 >
-> ![](/imgs/video.gif)
+> ​**Short video.**
+>
+> ![](/imgs/sample.gif)
 >
 > ------
 >
