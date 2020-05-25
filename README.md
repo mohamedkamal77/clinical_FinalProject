@@ -58,21 +58,43 @@
 >
 > ​ **We could add PPM for any device by clicking on New button.**
 >
-> ![](/imgs/img13.png)
+> ![](/imgs/img18.png)
 >
+>
+>## ​		**PPM To PDF**
+>
+> ​ **By clicking on Print Report window will pop up to select directoy and name**
+>
+> ​ **We Will find the report as pdf where it was saved**
+>
+> ![](/imgs/img15.png)
+>
+> ![](/imgs/img16.png)
+>
+> ![](/imgs/img17.png)
 >
 >
 >## ​		**DailyInspection.**
 >
-> ![](/imgs/img6.png)
+> ​ **It's the same as PPM**
 >
->## ​		**Add Daily Inspection.**
+> ![](/imgs/img10.png)
+>
+> ![](/imgs/img11.png)
+>
+>
+>## ​		**Purchase Order.**
+>
+> ​1. **It's the same as PPM but there is two differencies.**
+>
+> ​2. **There is no plot.**
+>
+> ![](/imgs/img13.png)
+>
+> ​3. **There is additional button to update status of order if equipment delivered.**
 >
 > ![](/imgs/img14.png)
 >
->## ​		**Update Purchase.**
->
-> ![](/imgs/img15.png)
 >
 >## ​		**Equipement,Engineer..etc.**
 >
