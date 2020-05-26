@@ -24,9 +24,11 @@
 >
 > ​**To get full video [full video](https://github.com/mohamedkamal77/clinical_FinalProject/tree/master/imgs/sample.mp4).**
 >
-> ​**Short video.**
+> ​**2 Short videos.**
 >
 > ![](/imgs/sample.gif)
+>
+> ![](/imgs/sample1.gif)
 >
 > ------
 >
